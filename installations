@@ -1,2 +1,5 @@
 opencv-contrib-python
+cmake
 dlib
+tkinter
+sv_ttk
