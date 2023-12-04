@@ -11,20 +11,19 @@ from PIL import Image, ImageTk
 class FacialRecognitionApp:
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1080x720")
 
         # Create a Tkinter Canvas for the video feed
-        self.video_canvas = Canvas(root, width=720, height=720)
-        self.video_canvas.place(x=360, y=0)
+        self.video_canvas = Canvas(root, width=360, height=320)
+        self.video_canvas.place(x=0, y=300)
 
         # Placeholder for the image
         # Can add some goofy stuff here if needed
-        self.DUMMY_IMAGE = ImageTk.PhotoImage(Image.new('RGB', (360, 720), 'black'))
+        self.DUMMY_IMAGE = ImageTk.PhotoImage(Image.new('RGB', (360, 320), 'black'))
         self.video_canvas.create_image(0, 0, anchor=tk.NW, image=self.DUMMY_IMAGE)
 
         # Create a socket for communication with the Blender script
         # self.blender_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # self.blender_socket.connect(("localhost", 12345))  # Adjust the host and port as needed
+        # self.blender_socket.connect(("localhost", 8080))  # Adjust the host and port as needed
 
         # Initialize the video capture.
         self.cap = cv2.VideoCapture(0)
@@ -55,7 +54,8 @@ class FacialRecognitionApp:
                         "frame": int(self.cap.get(cv2.CAP_PROP_POS_FRAMES)),
                         "landmarks": [(p.x, p.y) for p in landmarks.parts()]
                     }
-
+                    length = len(landmarks_data.get("landmarks"))
+                    print(length)
                     # self.blender_socket.send(json.dumps(landmarks_data).encode())
 
                     x, y, w, h = face.left(), face.top(), face.width(), face.height()
@@ -67,7 +67,7 @@ class FacialRecognitionApp:
                         cv2.circle(frame, (x, y), 3, (0, 255, 0), -1)
 
                 bgr_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-                bgr_frame = cv2.resize(bgr_frame, (720, 720))
+                bgr_frame = cv2.resize(bgr_frame, (360, 320))
                 img = Image.fromarray(bgr_frame)
                 img = ImageTk.PhotoImage(img)
 
