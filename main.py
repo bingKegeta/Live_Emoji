@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import *
 import sv_ttk
 import extra_functions
+import face_detect
 
 
 root = tkinter.Tk()
@@ -37,7 +38,7 @@ help_hypertext = Label(root, text="need help?", font=("Courier", 10, 'underline'
 help_hypertext.place(x=135, y=190)
 help_hypertext.bind("<Button-1>", lambda e: extra_functions.callback("http://www.google.com"))
 
-
+app = face_detect.FacialRecognitionApp(root)
 
 # copy clipboard panel
 copy_clipboard = Label(root, text="Copy to clipboard", font=("Courier", 10, 'underline'))

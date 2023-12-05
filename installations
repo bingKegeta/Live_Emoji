@@ -1,5 +1,6 @@
 opencv-contrib-python
 cmake
 dlib
-tkinter
+tk
 sv_ttk
+mediapipe
